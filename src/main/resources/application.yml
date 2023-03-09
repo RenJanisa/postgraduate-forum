@@ -1,0 +1,9 @@
+server:
+  port: 1025
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.105.163.167:3306/postgraduate_forum
+    username: root
+    password: RenJianJing1025!
