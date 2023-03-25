@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.banner.mapper.FollowRelationMapper">
+
+    <select id="getOtherId" resultType="java.lang.Long">
+        SELECT
+            b.obj_id
+        FROM
+            follow_relation a LEFT JOIN follow_relation b ON a.user_id = b.obj_id
+                AND a.obj_id = b.user_id AND b.user_id=#{myId}
+    </select>
+</mapper>
