@@ -1,8 +1,11 @@
 package com.banner.mapper;
 
+import com.banner.dto.InstitutionDto;
 import com.banner.po.Institution;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,5 +18,14 @@ import org.apache.ibatis.annotations.Select;
 public interface InstitutionMapper extends BaseMapper<Institution> {
 
     @Select("select id from institution where institution_name = #{institutionName}")
-    Long getByName(String institutionName);
+    Long getIdByName(String institutionName);
+
+    @Select("SELECT i.*,p.cname FROM institution i,place p WHERE i.institution_name like #{institutionName} AND i.area = p.id")
+    List<InstitutionDto> getLikeName(String institutionName);
+
+    @Select("SELECT i.*,p.cname FROM institution i,place p WHERE i.area in (SELECT id FROM place WHERE parent_id = #{placeId}) AND i.area = p.id")
+    List<InstitutionDto> getByPlaceId(String placeId);
+
+    @Select("SELECT i.*,p.cname FROM institution i,place p WHERE i.id like #{institutionId} AND i.area = p.id")
+    List<InstitutionDto> getById(String institutionId);
 }

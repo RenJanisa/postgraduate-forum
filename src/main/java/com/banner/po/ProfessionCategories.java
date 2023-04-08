@@ -16,7 +16,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class ProfessionCategories implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 专业分类id

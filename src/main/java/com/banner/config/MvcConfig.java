@@ -10,6 +10,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.MongoClientSettingsFactoryBean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -75,4 +76,5 @@ public class MvcConfig extends WebMvcConfigurationSupport {
         //将自定义的消息转换器添加到mvc中转换器集合中(放在前面优先使用)
         converters.add(0, messageConverter);
     }
+
 }

@@ -4,6 +4,10 @@ import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -27,17 +31,14 @@ public class Institution implements Serializable {
     /**
      * 院校名称
      */
+    @NotEmpty(message = "院校名不为空")
     private String institutionName;
 
     /**
      * 该院校所属地区
      */
+    @NotNull(message = "未指定院校地区")
     private Integer area;
-
-    /**
-     * 院校所代表的编码
-     */
-    private Integer number;
 
     /**
      * 院校所隶属的部门，例:教育部...
@@ -50,16 +51,13 @@ public class Institution implements Serializable {
     private String peculiarity;
 
     /**
-     * 院校的一些情况的介绍
-     */
-    private String description;
-
-    /**
      * 院校官网的网址
      */
+    @NotEmpty(message = "官网地址不为空")
     private String institutionUrl;
 
-    public Institution(String institutionName,String institutionUrl){
+    public Institution(Long id,String institutionName,String institutionUrl){
+        this.id = id;
         this.institutionName = institutionName;
         this.institutionUrl = institutionUrl;
     }

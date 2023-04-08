@@ -77,7 +77,6 @@ public class MessageServiceImpl implements MessageService {
     public R<String> deleteMessageWithSomeone(Long toId) {
 
         Long myId = BaseContext.getUserId();
-        //双方均想删除
         if (messageMapper.deleteAllMessage(myId, toId))
             return R.success("删除成功!");
         else PostgraduateForumException.error(500, "删除失败!");

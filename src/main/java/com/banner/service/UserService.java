@@ -21,7 +21,7 @@ public interface UserService extends IService<User> {
 
     R<String> sendCode(String email);
 
-    R<LoginSuccessDto> userLogin(LoginDto loginDto);
+    R<LoginSuccessDto> userLogin(LoginDto loginDto, HttpServletRequest request);
 
     R<String> register(LoginDto user);
 

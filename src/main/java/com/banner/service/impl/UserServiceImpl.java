@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static com.banner.utils.EmailInfo.CONTEXT;
@@ -88,7 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public R<LoginSuccessDto> userLogin(LoginDto loginDto) {
+    public R<LoginSuccessDto> userLogin(LoginDto loginDto, HttpServletRequest request) {
 
 
         //获取邮箱地址
@@ -96,27 +97,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //获取密码
         String password = loginDto.getPassword();
 
-        if (!loginDto.getCode().equals(loginDto.getUserCode())) {
+        if (!loginDto.getCode().equals(request.getHeader("code")))
             PostgraduateForumException.error(CommonError.CODE_ERROR);
-        }
 
         //判断邮箱和密码是否符合规则
-        if (RegexUtils.isNotEmail(email) || RegexUtils.isNotPassword(password)) {
+        if (RegexUtils.isNotEmail(email) || RegexUtils.isNotPassword(password))
             PostgraduateForumException.error(CommonError.PARAMS_ERROR);
-        }
 
         //在数据库中查询用户是否存在
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getEmail, email);
         User one = this.getOne(queryWrapper);
 
-        if (one == null) {
-            PostgraduateForumException.error(CommonError.QUERY_NULL);
-        }
+        if (one == null) PostgraduateForumException.error(CommonError.QUERY_NULL);
 
-        if (!one.getPassword().equals(password)) {
-            PostgraduateForumException.error(500, "密码错误");
-        }
+
+        if (!one.getPassword().equals(password)) PostgraduateForumException.error(500, "密码错误");
 
         //1.随机生成token,作为登陆令牌
         String token = UUID.randomUUID().toString(true);
@@ -161,7 +157,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User newUser = new User(userId, email, password);
         userMapper.insert(newUser);
         String name = "banner" + RandomUtil.randomString(4);
-        String avatar = "/default.jpeg";
+        String avatar = "default.jpeg";
         userInfoMapper.insert(new UserInfo(userId, name, avatar));
 
         return R.success("注册成功");
@@ -180,13 +176,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public R<String> deleteUser(String userIds) {
 
-        String[] userIdList = userIds.split(",");
-        for (String userId : userIdList) {
-            if (StrUtil.isBlank(userId)) {
-                userMapper.deleteById(BaseContext.getUserId());
-            }
-            userMapper.deleteById(userId);
+        if (StrUtil.isBlank(userIds)) {
+            userMapper.deleteById(BaseContext.getUserId());
+            return R.success("注销成功");
         }
+
+        String[] userIdList = userIds.split(",");
+        userMapper.deleteBatchIds(Arrays.asList(userIdList));
         return R.success("注销成功");
     }
 
@@ -194,8 +190,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public R<UserDto> getUser(String strUserId) {
 
         Long userId;
-        if (StrUtil.isNotBlank(strUserId))
-            userId = Long.valueOf(strUserId);
+        if (StrUtil.isNotBlank(strUserId)) userId = Long.valueOf(strUserId);
         else userId = BaseContext.getUserId();
 
         UserDto userDto = userInfoMapper.getNameAndAvatarById(userId);

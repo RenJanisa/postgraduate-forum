@@ -1,9 +1,13 @@
 package com.banner.controller;
 
 
+import com.banner.service.CommonService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -14,7 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-03-11
  */
 @RestController
-@RequestMapping("/ucenter/comment")
+@RequestMapping("/comment")
 public class CommentController {
+
+    @Resource
+    private CommonService commonService;
+
+//    @GetMapping
+//    public R<>
 
 }

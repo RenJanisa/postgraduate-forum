@@ -65,8 +65,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public R<LoginSuccessDto> login(@RequestBody @Validated LoginDto loginDto){
-        return userService.userLogin(loginDto);
+    public R<LoginSuccessDto> login(@RequestBody @Validated LoginDto loginDto, HttpServletRequest request){
+        return userService.userLogin(loginDto, request);
     }
 
 

@@ -1,8 +1,13 @@
 package com.banner.po;
 
 import java.time.LocalDate;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.Year;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,10 +29,6 @@ public class Borderline implements Serializable {
      */
     private Long id;
 
-    /**
-     * 学院id
-     */
-    private Long institutionId;
 
     /**
      * 专业id
@@ -35,29 +36,40 @@ public class Borderline implements Serializable {
     private Long professionId;
 
     /**
-     * 公布分数线的年份
-     */
-    private LocalDate year;
-
-    /**
      * 总分数线
      */
-    private Integer totalScores;
+    private Integer atotalScore;
 
     /**
      * 单科分数超过100的单科分数线
      */
-    private Integer bigScores;
+    private Integer abigScores;
 
     /**
      * 单科分数为100的单科分数线
      */
-    private Integer smallScores;
+    private Integer asmallScores;
+
 
     /**
-     * 是否为自划线院校的专业分类 0:是 1:不是
+     * 总分数线
      */
-    private Integer selfScore;
+    private Integer btotalScore ;
+
+    /**
+     * 单科分数超过100的单科分数线
+     */
+    private Integer bbigScores;
+
+    /**
+     * 单科分数为100的单科分数线
+     */
+    private Integer bsmallScores;
+
+    /**
+     * 创建时间
+     */
+    private String createTime;
 
 
 }

@@ -1,6 +1,8 @@
 package com.banner.service;
 
+import com.banner.dto.BorderlineDto;
 import com.banner.po.Borderline;
+import com.banner.utils.R;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BorderlineService extends IService<Borderline> {
 
+    R<BorderlineDto> getBorderline(String professionId);
 }

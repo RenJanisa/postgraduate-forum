@@ -7,3 +7,36 @@ spring:
     url: jdbc:mysql://39.105.163.167:3306/postgraduate_forum
     username: root
     password: RenJianJing1025!
+  mail:
+    host: smtp.qq.com
+    username: 2156136144@qq.com
+    password: wxglruboexcpeajb
+    port: 587
+  data:
+    mongodb:
+      uri: mongodb://39.105.163.167:8787/postgraduate
+  redis:
+    host: 39.105.163.167
+    port: 6379
+    password: RenJianJing1025
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        time-between-eviction-runs: 10s
+mybatis-plus:
+  configuration:
+    #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 雪花算法生成id
+      id-type: ASSIGN_ID
+minio:
+  endpoint: http://39.105.163.167:9000
+  accessKey: UFLOK3WLVGF8BO4HNX8B
+  secretKey: GpoK8cXUbYLgHvPW6U3JJwiumV3LGXq+PCx20qD4
+  bucket:
+    files: postgraduate

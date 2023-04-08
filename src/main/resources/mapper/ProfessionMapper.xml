@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.banner.mapper.ProfessionMapper">
+
+    <select id="getProfessionByName" resultType="com.banner.dto.ProfessionDto">
+        SELECT
+            p.*, c.profession_categories_name,
+            c.description category_description,
+            c.flag,
+            i.institution_name,
+            i.id institution_id
+        FROM
+            profession p,
+            profession_categories c,
+            institution i
+        WHERE
+            p.profession_name LIKE #{professionName}
+          AND p.category_id = c.id
+          AND i.id IN (
+            SELECT
+                r.institution_id
+            FROM
+                profession_institution_relation r
+            WHERE
+                p.id = r.profession_id
+        )
+    </select>
+
+    <select id="getProfessionByCategoryId" resultType="com.banner.dto.ProfessionDto">
+        SELECT
+            p.*, c.profession_categories_name,
+            c.description category_description,
+            c.flag,
+            i.institution_name,
+            i.id institution_id
+        FROM
+            profession p,
+            profession_categories c,
+            institution i
+        WHERE
+            IF(#{flag}=0,p.category_id = #{professionId},p.id = #{professionId})
+          AND p.category_id = c.id
+          AND i.id IN (
+            SELECT
+                r.institution_id
+            FROM
+                profession_institution_relation r
+            WHERE
+                p.id = r.profession_id
+        )
+    </select>
+
+    <select id="getProfessionByInstitutionId" resultType="com.banner.dto.ProfessionDto">
+        SELECT
+            p.*, c.profession_categories_name,
+            c.description category_description,
+            c.flag,
+            i.institution_name,
+            i.id institution_id
+        FROM
+            profession p,
+            profession_categories c,
+            institution i
+        WHERE
+            i.id = #{institutionId}
+          AND p.id IN (
+            SELECT
+                r.profession_id
+            FROM
+                profession_institution_relation r
+            WHERE
+                r.institution_id = #{institutionId}
+        )
+          AND p.category_id = c.id
+    </select>
+
+</mapper>

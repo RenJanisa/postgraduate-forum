@@ -57,7 +57,7 @@ public class PostInfo implements Serializable {
     private LocalDateTime updateTime;
 
     /**
-     * 帖子状态;0表示未审核，1表示已审核 3 草稿
+     * 帖子状态;2表示未审核，1表示已审核,0 草稿
      */
     private Integer status;
 

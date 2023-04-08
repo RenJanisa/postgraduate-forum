@@ -21,7 +21,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Reply implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 回复id
@@ -38,10 +37,6 @@ public class Reply implements Serializable {
      */
     private Long userId;
 
-    /**
-     * 点赞数量
-     */
-    private Long likeCount;
 
     /**
      * 回复内容

@@ -21,17 +21,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Profession implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 专业id
      */
     private Long id;
 
-    /**
-     * 学院id
-     */
-    private Long institutionId;
+    private Long categoryId;
 
     /**
      * 专业名称
@@ -39,25 +34,16 @@ public class Profession implements Serializable {
     private String professionName;
 
     /**
-     * 专业分类的描述
+     * 专业描述
      */
     private String description;
 
     /**
-     * 招生人数
+     * 专业代码
      */
-    private Integer studentEnrollment;
+    private String code;
 
-    /**
-     * 报考人数
-     */
-    private Integer studentCandidate;
 
-    /**
-     * 创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
 
 
 }

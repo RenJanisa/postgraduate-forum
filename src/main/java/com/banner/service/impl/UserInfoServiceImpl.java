@@ -12,6 +12,7 @@ import com.banner.utils.BaseContext;
 import com.banner.utils.R;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,15 +57,18 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Long userId = BaseContext.getUserId();
         userInfo.setUserId(userId);
 
-        Long institutionId = institutionMapper.getByName(userInfoDto.getInstitutionName());
+        if (StrUtil.isNotBlank(userInfoDto.getInstitutionName())){
+            Long institutionId = institutionMapper.getIdByName(userInfoDto.getInstitutionName());
 
-        if (institutionId == null) {
-            //该院校记录不存在
-            Institution institution = new Institution(userInfoDto.getInstitutionName(), userInfoDto.getInstitutionUrl());
-            institutionMapper.insert(institution);
-            institutionId = institutionMapper.getByName(userInfoDto.getInstitutionName());
+            if (institutionId == null) {
+                institutionId = IdWorker.getId();
+                //该院校记录不存在
+                Institution institution = new Institution(institutionId,userInfoDto.getInstitutionName(), userInfoDto.getInstitutionUrl());
+                institutionMapper.insert(institution);
+            }
+
+            userInfo.setGoalId(institutionId);
         }
-        userInfo.setGoalId(institutionId);
 
         userInfoMapper.update(userInfo,new LambdaUpdateWrapper<UserInfo>().eq(UserInfo::getUserId,userId));
 

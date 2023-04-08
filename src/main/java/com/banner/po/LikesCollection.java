@@ -42,15 +42,14 @@ public class LikesCollection implements Serializable {
     private LocalDate createTime;
 
     /**
-     * 该操作的类型;1表示赞，2表示收藏
+     * 该操作的类型;0表示赞，1表示收藏
      */
     private Integer type;
 
     /**
      * 帖子对应的id，与帖子表关联起来
      */
-    @TableField("postId")
-    private Long postid;
+    private Long postId;
 
 
 }

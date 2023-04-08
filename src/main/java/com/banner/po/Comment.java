@@ -21,7 +21,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Comment implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 评论id
@@ -36,7 +35,7 @@ public class Comment implements Serializable {
     /**
      * 关联对象id
      */
-    private Long objId;
+    private Long postId;
 
     /**
      * 评论内容

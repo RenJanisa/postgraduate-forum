@@ -16,5 +16,4 @@ public class LoginDto {
     private String password;
     @NotEmpty(message = "验证码不能为空")
     private String code;
-    private String userCode;
 }
