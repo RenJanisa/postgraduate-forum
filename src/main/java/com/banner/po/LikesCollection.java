@@ -26,14 +26,16 @@ public class LikesCollection implements Serializable {
     private Long id;
 
     /**
-     * 被操作用户id
-     */
-    private Long objId;
-
-    /**
      * 执行操作用户id
      */
     private Long mId;
+
+    /**
+     * 点赞或收藏目标对应的id
+     */
+    private Long postId;
+
+    private Long commentId;
 
     /**
      * 用户操作的时间
@@ -45,11 +47,5 @@ public class LikesCollection implements Serializable {
      * 该操作的类型;0表示赞，1表示收藏
      */
     private Integer type;
-
-    /**
-     * 帖子对应的id，与帖子表关联起来
-     */
-    private Long postId;
-
 
 }

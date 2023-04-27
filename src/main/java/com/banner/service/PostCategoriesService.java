@@ -12,4 +12,8 @@ import java.util.List;
  */
 public interface PostCategoriesService extends IService<PostCategory> {
     R<List<String>> getPostCategories(String postId);
+
+    R<List<PostCategory>> getAllCategories(String categoryName);
+
+    R<String> addPostCategory(PostCategory postCategory);
 }

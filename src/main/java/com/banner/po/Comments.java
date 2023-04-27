@@ -1,6 +1,5 @@
 package com.banner.po;
 
-import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -8,6 +7,7 @@ import java.time.LocalDateTime;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -19,7 +19,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Comment implements Serializable {
+@NoArgsConstructor
+public class Comments implements Serializable {
 
 
     /**
@@ -48,5 +49,10 @@ public class Comment implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    public Comments(Long userId,String content, Long postId){
+        this.userId = userId;
+        this.content = content;
+        this.postId = postId;
+    }
 
 }

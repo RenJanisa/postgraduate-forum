@@ -28,4 +28,9 @@ public interface InstitutionMapper extends BaseMapper<Institution> {
 
     @Select("SELECT i.*,p.cname FROM institution i,place p WHERE i.id like #{institutionId} AND i.area = p.id")
     List<InstitutionDto> getById(String institutionId);
+
+    @Select("SELECT i.*,p.cname FROM institution i,place p WHERE i.institution_name like #{institutionName} AND i.area = p.id limit #{page},#{pageSize}")
+    List<InstitutionDto> getInstitutionPageWithName(Integer page, Integer pageSize, String institutionName);
+    @Select("SELECT i.*,p.cname FROM institution i,place p WHERE i.area = p.id limit #{page},#{pageSize}")
+    List<InstitutionDto> getInstitutionPage(Integer page, Integer pageSize);
 }

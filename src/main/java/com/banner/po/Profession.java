@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 专业表
@@ -26,17 +29,14 @@ public class Profession implements Serializable {
      */
     private Long id;
 
+    @NotNull(message = "分类不为空")
     private Long categoryId;
 
     /**
      * 专业名称
      */
+    @NotBlank(message = "专业名不为空")
     private String professionName;
-
-    /**
-     * 专业描述
-     */
-    private String description;
 
     /**
      * 专业代码

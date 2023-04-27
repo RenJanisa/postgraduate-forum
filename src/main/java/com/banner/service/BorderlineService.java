@@ -15,5 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BorderlineService extends IService<Borderline> {
 
-    R<BorderlineDto> getBorderline(String professionId);
+    R<BorderlineDto> getBorderline(String categoryId);
+
+    R<String> addBorderline(Borderline borderline);
+
+    R<String> updateBorderline(Borderline borderline);
 }

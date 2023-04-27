@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface BorderlineMapper extends BaseMapper<Borderline> {
 
-    BorderlineDto getBorderline(@Param("professionId") String professionId);
+    BorderlineDto getBorderline(@Param("categoryId") String categoryId);
 }

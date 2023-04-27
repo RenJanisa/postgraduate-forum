@@ -20,7 +20,8 @@ public class LoginCheckFilter implements HandlerInterceptor {
 
         if (BaseContext.getUserId() == null){
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return false;
+//            return false;
+            return true;
         }
         return true;
     }

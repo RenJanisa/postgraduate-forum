@@ -5,22 +5,19 @@
 
     <select id="getUserInfo" resultType="com.banner.dto.UserInfoDto">
         SELECT
-            u.user_name,
-            u.tel,
-            u.avatar,
-            u.signature,
-            u.school,
-            u.profession,
-            u.grade,
-            u.sex,
-            u.age,
-            i.institution_name,
-            i.institution_url
+            u.*,
+            n.institution_name goal_name,
+            p.profession_name,
+            i.institution_name
         FROM
             user_info u,
-            institution i
+            institution i,
+            institution n,
+            profession p
         WHERE
-            u.goal_id = i.id
-          AND u.user_id = #{userId}
+            u.user_id = #{userId}
+          AND u.institution_id = i.id
+          AND u.goal_id = n.id
+          AND u.profession_id = p.id
     </select>
 </mapper>

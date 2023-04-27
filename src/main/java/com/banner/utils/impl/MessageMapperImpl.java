@@ -21,9 +21,6 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.zip.DataFormatException;
-
-import static com.banner.utils.RedisConstants.MESSAGE_FLAG_KEY;
 
 /**
  * @author rjj

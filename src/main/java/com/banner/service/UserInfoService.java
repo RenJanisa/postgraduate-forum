@@ -17,5 +17,5 @@ public interface UserInfoService extends IService<UserInfo> {
 
     R<UserInfoDto> getUserInfo(String userId);
 
-    R<String> addUserInfo(UserInfoDto userInfoDto);
+    R<String> addUserInfo(UserInfo userInfo);
 }

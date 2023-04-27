@@ -1,5 +1,6 @@
 package com.banner.mapper;
 
+import com.banner.dto.LoginSuccessDto;
 import com.banner.dto.UserDto;
 import com.banner.dto.UserInfoDto;
 import com.banner.po.UserInfo;
@@ -23,4 +24,6 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
 
     UserInfoDto getUserInfo(@Param("userId") Long userId);
 
+    @Select("select u.user_name,u.avatar,u.institution_id,i.institution_name from user_info u,institution i where user_id = #{id} and u.institution_id = i.id")
+    LoginSuccessDto getUserLoginInfo(Long id);
 }

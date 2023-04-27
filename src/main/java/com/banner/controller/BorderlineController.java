@@ -2,13 +2,11 @@ package com.banner.controller;
 
 
 import com.banner.dto.BorderlineDto;
+import com.banner.po.Borderline;
 import com.banner.service.BorderlineService;
 import com.banner.utils.R;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -28,8 +26,18 @@ public class BorderlineController {
     private BorderlineService borderlineService;
 
     @GetMapping
-    public R<BorderlineDto> getBorderline(String professionId){
-        return borderlineService.getBorderline(professionId);
+    public R<BorderlineDto> getBorderline(String categoryId){
+        return borderlineService.getBorderline(categoryId);
+    }
+
+    @PostMapping
+    public R<String> addBorderline(@RequestBody @Validated Borderline borderline){
+        return borderlineService.addBorderline(borderline);
+    }
+
+    @PutMapping
+    public R<String> updateBorderline(@RequestBody @Validated Borderline borderline){
+        return borderlineService.updateBorderline(borderline);
     }
 
 }

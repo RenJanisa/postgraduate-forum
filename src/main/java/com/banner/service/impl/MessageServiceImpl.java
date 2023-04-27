@@ -58,8 +58,6 @@ public class MessageServiceImpl implements MessageService {
         Long myId = BaseContext.getUserId();
         //获取好友
         List<Long> otherId = followRelationMapper.getOtherId(myId);
-        //删除所有空数据
-        otherId.removeAll(Collections.singleton(null));
 
         List<UserDto> userDtos = new ArrayList<>();
         for (Long item : otherId) {

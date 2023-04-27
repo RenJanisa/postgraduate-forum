@@ -2,6 +2,7 @@ package com.banner.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 /**
@@ -10,9 +11,6 @@ import java.util.Map;
  */
 @Data
 public class ProfessionGetDto {
-    private String professionId;
-    //一级分类传0,二级分类传1
-    private Integer flag;
-    private String institutionId;
+    private String categoryId;
     private String professionName;
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.banner.mapper.PostInfoMapper">
+
+
+    <select id="getRecommendPost" resultType="com.banner.dto.PostRecommendDto">
+        SELECT p.id,
+               p.user_id,
+               p.title,
+               p.update_time,
+               p.digest,
+               p.img,
+               u.user_name,
+               u.avatar
+        FROM post_info p,
+             user_info u
+        WHERE p.user_id = u.user_id
+          AND p.status = 0
+        ORDER BY p.update_time DESC LIMIT #{page}, #{pageSize}
+    </select>
+
+    <select id="getPostPageWithName" resultType="com.banner.dto.PostUserDto">
+        SELECT p.id,
+               p.title,
+               p.update_time,
+               p.digest,
+               p.img,
+               p.`status`
+        FROM post_info p
+        WHERE p.title LIKE #{name}
+          AND p.`status` IN (0, 1)
+        ORDER BY p.`status` DESC,
+                 p.update_time DESC LIMIT #{page}, #{pageSize}
+    </select>
+
+    <select id="getPostPage" resultType="com.banner.dto.PostUserDto">
+        SELECT p.id,
+               p.title,
+               p.update_time,
+               p.digest,
+               p.img,
+               p.`status`
+        FROM post_info p
+        WHERE p.`status` IN (0, 1)
+        ORDER BY p.`status` DESC,
+                 p.update_time DESC LIMIT #{page}, #{pageSize}
+    </select>
+
+
+</mapper>

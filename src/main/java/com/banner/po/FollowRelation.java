@@ -1,13 +1,16 @@
 package com.banner.po;
 
 import java.time.LocalDate;
+
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -19,13 +22,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 public class FollowRelation implements Serializable {
-
-
-    /**
-     * 关注id
-     */
-    private Long id;
 
     /**
      * 要进行关注操作的用户id
@@ -48,5 +46,9 @@ public class FollowRelation implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-
+    public FollowRelation(Long userId, Long objId, String address) {
+        this.userId = userId;
+        this.objId = objId;
+        this.address = address;
+    }
 }

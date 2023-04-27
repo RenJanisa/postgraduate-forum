@@ -17,7 +17,7 @@ public class PostCompleteDto {
      */
     private Long id;
     /**
-     * 帖子状态;2表示未审核，1表示已审核,0 草稿
+     * 帖子状态;0表示已审核 1表示未审核，2表示草稿
      */
     private Integer status;
 

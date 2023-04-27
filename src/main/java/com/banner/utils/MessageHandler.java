@@ -29,8 +29,6 @@ public class MessageHandler extends TextWebSocketHandler {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
     private static final Map<Long, WebSocketSession> SESSIONS = new HashMap<>();
 
     //用户和服务端建立连接后

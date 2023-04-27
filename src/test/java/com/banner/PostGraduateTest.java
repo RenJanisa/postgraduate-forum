@@ -96,7 +96,6 @@ public class PostGraduateTest {
     void addProfess(){
         Profession profession = new Profession();
         profession.setProfessionName("计算机科学与技术");
-        profession.setDescription("老牌专业");
         profession.setCategoryId(1642160445110476809L);
         professionMapper.insert(profession);
     }

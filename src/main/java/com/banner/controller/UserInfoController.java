@@ -2,6 +2,7 @@ package com.banner.controller;
 
 
 import com.banner.dto.UserInfoDto;
+import com.banner.po.UserInfo;
 import com.banner.service.UserInfoService;
 import com.banner.utils.R;
 import org.springframework.validation.annotation.Validated;
@@ -31,8 +32,8 @@ public class UserInfoController {
     }
 
     @PutMapping
-    public R<String> addUserInfo(@RequestBody @Validated UserInfoDto userInfoDto){
-        return userInfoService.addUserInfo(userInfoDto);
+    public R<String> addUserInfo(@RequestBody @Validated UserInfo userInfo){
+        return userInfoService.addUserInfo(userInfo);
     }
 
 

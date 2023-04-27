@@ -2,21 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.banner.mapper.BorderlineMapper">
     <select id="getBorderline" resultType="com.banner.dto.BorderlineDto">
-        SELECT
-            b.*, p.profession_categories_name,
-            p.description,
-            p.flag
-        FROM
-            borderline b,
-            profession_categories p
-        WHERE
-                b.profession_id = (
-                SELECT
-                    category_id
-                FROM
-                    profession
-                WHERE
-                    id = #{professionId}
-            )
+        SELECT b.*,
+               p.profession_categories_name,
+               p.description,
+               p.flag
+        FROM borderline b,
+             profession_categories p
+        WHERE b.category_id = #{categoryId}
+          AND b.category_id = p.id
     </select>
 </mapper>

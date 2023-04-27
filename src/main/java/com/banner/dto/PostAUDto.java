@@ -3,7 +3,6 @@ package com.banner.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
@@ -11,7 +10,9 @@ import javax.validation.constraints.Size;
  * @date 2023/3/25 - 9:37
  */
 @Data
-public class PostAddDto {
+public class PostAUDto {
+
+    private String id;
 
     /**
      * 标题

@@ -2,9 +2,7 @@ package com.banner.service.impl;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.banner.dto.InstitutionDto;
-import com.banner.dto.InstitutionGetDto;
-import com.banner.dto.PlaceDto;
+import com.banner.dto.*;
 import com.banner.mapper.InstitutionMapper;
 import com.banner.mapper.PlaceMapper;
 import com.banner.po.Institution;
@@ -60,13 +58,13 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
         String institutionName = institutionGet.getInstitutionName();
         String institutionId = institutionGet.getInstitutionId();
         List<InstitutionDto> institutions;
+        if (StrUtil.isNotBlank(institutionId)){
+            institutions = institutionMapper.getById(institutionId);
+            return R.success(institutions);
+        }
         if(StrUtil.isNotBlank(institutionName)){
             //关键字搜索
              institutions = institutionMapper.getLikeName("%"+institutionName+"%");
-            return R.success(institutions);
-        }
-        if (StrUtil.isNotBlank(institutionId)){
-            institutions = institutionMapper.getById(institutionId);
             return R.success(institutions);
         }
         //根据地区id搜索
@@ -77,6 +75,10 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
     @Override
     @Transactional
     public R<String> addInstitution(Institution institution) {
+
+        Integer count = institutionMapper.selectCount(new LambdaQueryWrapper<Institution>().eq(Institution::getInstitutionName, institution.getInstitutionName()));
+        if (count > 0) PostgraduateForumException.error(500,"已存在");
+
         int save = institutionMapper.insert(institution);
         if (save <= 0) PostgraduateForumException.error(CommonError.UNKOWN_ERROR);
         return R.success("添加成功!");
@@ -98,5 +100,19 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
         int delete = institutionMapper.deleteBatchIds(Arrays.asList(postList));
         if (delete <= 0) PostgraduateForumException.error(CommonError.UNKOWN_ERROR);
         return R.success("删除成功");
+    }
+
+    @Override
+    public R<PageDto<InstitutionDto>> getInstitutionPage(PageGetDto pageGetDto) {
+
+        Integer page = pageGetDto.getPage();
+        Integer pageSize = pageGetDto.getPageSize();
+        String institutionName = pageGetDto.getName();
+
+        List<InstitutionDto> institutions;
+        if (StrUtil.isNotBlank(institutionName)) institutions = institutionMapper.getInstitutionPageWithName((page - 1) * pageSize, pageSize,"%"+institutionName+"%");
+        else institutions = institutionMapper.getInstitutionPage((page - 1) * pageSize, pageSize);
+        PageDto<InstitutionDto> institutionDtoPageDto = new PageDto<>(page,pageSize,institutions);
+        return R.success(institutionDtoPageDto);
     }
 }

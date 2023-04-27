@@ -6,6 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
  * 用户信息表
@@ -24,10 +28,10 @@ public class UserInfo implements Serializable {
 
     private Long userId;
 
-
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不为空")
     private String userName;
 
     /**
@@ -48,12 +52,12 @@ public class UserInfo implements Serializable {
     /**
      * 用户所在学校
      */
-    private String school;
+    private Long institutionId;
 
     /**
      * 用户所读专业
      */
-    private String profession;
+    private Long professionId;
 
     /**
      * 用户年级
@@ -68,6 +72,8 @@ public class UserInfo implements Serializable {
     /**
      * 用户性别
      */
+    @Max(value = 1,message = "非法type")
+    @Min(value = 0,message = "非法type")
     private Integer sex;
 
     /**

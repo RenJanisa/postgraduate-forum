@@ -10,8 +10,8 @@ public class RedisConstants {
     public static final String LOGIN_CODE_KEY = "login:code:";
 
     public static final Long LOGIN_CODE_TIME = 1L;
-    public static final String MESSAGE_FLAG_KEY = "message:isDelete:";
 
+    public static final String LIKE_COLLECTION_IS = "likecollection:is:";
 
 
 }

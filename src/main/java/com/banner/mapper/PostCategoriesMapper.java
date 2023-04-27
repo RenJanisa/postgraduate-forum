@@ -11,6 +11,6 @@ import java.util.List;
  * @date 2023/3/25 - 9:31
  */
 public interface PostCategoriesMapper extends BaseMapper<PostCategory> {
-    @Select("select name from post_category where id = #{postCategoriesId}")
-    String getCategories(String postCategoriesId);
+    @Select("select p.name from post_category p where p.id in (select category_id from post_categories_relation where post_id = #{postId} )")
+    List<String> getCategories(String postId);
 }

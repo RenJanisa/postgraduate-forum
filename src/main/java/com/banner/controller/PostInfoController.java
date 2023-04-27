@@ -1,16 +1,14 @@
 package com.banner.controller;
 
 
-import com.banner.dto.PostAddDto;
-import com.banner.dto.PostCompleteDto;
-import com.banner.dto.PostDto;
+import com.banner.dto.*;
 import com.banner.service.PostInfoService;
 import com.banner.utils.R;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * <p>
@@ -33,8 +31,8 @@ public class PostInfoController {
     }
 
     @PostMapping
-    public R<Long> addPost(@RequestBody @Validated PostAddDto postAddDto){
-        return postInfoService.addPost(postAddDto);
+    public R<Long> addPost(@RequestBody @Validated PostAUDto postAUDto){
+        return postInfoService.addPost(postAUDto);
     }
 
     @PutMapping
@@ -42,9 +40,24 @@ public class PostInfoController {
         return postInfoService.completePost(postCompleteDto);
     }
 
+    @PutMapping("/all")
+    public R<String> updatePost(@RequestBody @Validated PostAUDto postAUDto){
+        return postInfoService.updatePost(postAUDto);
+    }
+
     @DeleteMapping
     public R<String> deletePost(String postId){
         return postInfoService.deletePost(postId);
+    }
+
+    @GetMapping("/recommend")
+    public R<PageDto<PostRecommendDto>> recommendPost(Integer page, Integer pageSize){
+        return  postInfoService.recommendPost(page, pageSize);
+    }
+
+    @GetMapping("/user")
+    public R<List<PostUserDto>> getUserPost(Integer status){
+        return postInfoService.getUserPost(status);
     }
 
 

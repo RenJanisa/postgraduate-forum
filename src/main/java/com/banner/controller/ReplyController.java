@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-03-11
  */
 @RestController
-@RequestMapping("/ucenter/reply")
+@RequestMapping("/reply")
 public class ReplyController {
 
 }

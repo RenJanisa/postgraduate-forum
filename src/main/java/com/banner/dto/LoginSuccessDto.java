@@ -10,4 +10,8 @@ import lombok.Data;
 @Data
 public class LoginSuccessDto extends User {
     private String token;
+    private String userName;
+    private String avatar;
+    private String institutionId;
+    private String institutionName;
 }

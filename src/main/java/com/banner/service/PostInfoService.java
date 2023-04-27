@@ -1,11 +1,11 @@
 package com.banner.service;
 
-import com.banner.dto.PostAddDto;
-import com.banner.dto.PostCompleteDto;
-import com.banner.dto.PostDto;
+import com.banner.dto.*;
 import com.banner.po.PostInfo;
 import com.banner.utils.R;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,9 +19,17 @@ public interface PostInfoService extends IService<PostInfo> {
 
     R<PostDto> getPost(String postId);
 
-    R<Long> addPost(PostAddDto postAddDto);
+    R<Long> addPost(PostAUDto postAUDto);
 
     R<String> completePost(PostCompleteDto postCompleteDto);
 
     R<String> deletePost(String postId);
+
+    R<PageDto<PostRecommendDto>> recommendPost(Integer page, Integer pageSize);
+
+    R<String> updatePost(PostAUDto postAUDto);
+
+    R<List<PostUserDto>> getUserPost(Integer status);
+
+    R<PageDto<PostUserDto>> getPostPage(PageGetDto pageGetDto);
 }

@@ -1,8 +1,6 @@
 package com.banner.service;
 
-import com.banner.dto.LoginDto;
-import com.banner.dto.LoginSuccessDto;
-import com.banner.dto.UserDto;
+import com.banner.dto.*;
 import com.banner.po.User;
 import com.banner.utils.R;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -30,4 +28,6 @@ public interface UserService extends IService<User> {
     R<String> deleteUser(String userIds);
 
     R<UserDto> getUser(String userId);
+
+    R<PageDto<UserPageDto>> getUserPage(PageGetDto pageGetDto);
 }

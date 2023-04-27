@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.banner.mapper.LikesCollectionMapper">
+
+
+    <select id="getLikesCollectionCont" resultType="integer">
+        SELECT COUNT(id)
+        FROM likes_collection
+        WHERE (case #{flag}
+                   WHEN 0 THEN post_id = #{id}
+                   WHEN 1 THEN comment_id = #{id}
+                   ELSE NULL END)
+          AND type = #{type}
+    </select>
+
+    <delete id="deleteLikeCollection">
+        DELETE
+        FROM likes_collection
+        WHERE (case #{flag}
+                   WHEN 0 THEN post_id = #{id}
+                   WHEN 1 THEN comment_id = #{id}
+                   WHEN 2 THEN reply_id = #{id}
+                   ELSE NULL END)
+          AND m_id = #{userId}
+    </delete>
+
+    <select id="getUserLikesCollectionInfoPost" resultType="com.banner.dto.UserLikesCollectionInfoDto">
+        SELECT l.*,
+               u.user_id   other_id,
+               u.user_name other_name,
+               u.avatar    other_avatar,
+               p.title
+        FROM likes_collection l,
+             user_info u,
+             post_info p
+        WHERE l.m_id = #{id}
+          AND l.type = #{type}
+          AND p.id = l.post_id
+          AND p.user_id = u.user_id
+    </select>
+
+    <select id="getUserLikesCollectionInfoComment" resultType="com.banner.dto.UserLikesCollectionInfoDto">
+        SELECT l.id,
+               l.m_id,
+               l.comment_id,
+               l.create_time,
+               l.type,
+               u.user_id   other_id,
+               u.user_name other_name,
+               u.avatar    other_avatar,
+               c.content,
+               c.post_id,
+               p.title
+        FROM likes_collection l,
+             user_info u,
+             comments c,
+             post_info p
+        WHERE l.m_id = #{id}
+          AND l.type = #{type}
+          AND l.comment_id = c.id
+          AND c.user_id = u.user_id
+          AND p.id = c.post_id
+    </select>
+
+</mapper>

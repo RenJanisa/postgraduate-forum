@@ -2,9 +2,11 @@ package com.banner.controller;
 
 
 import com.banner.po.PostCategoriesRelation;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.banner.po.ProfessionCategories;
+import com.banner.service.ProfessionCategoriesService;
+import com.banner.utils.R;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -20,6 +22,18 @@ import javax.annotation.Resource;
 @RequestMapping("/profession-categories")
 public class ProfessionCategoriesController {
 
+    @Resource
+    private ProfessionCategoriesService professionCategoriesService;
+
+    @PostMapping
+    public R<String> addProfessionCategory(@Validated @RequestBody ProfessionCategories professionCategories){
+        return professionCategoriesService.addProfessionCategory(professionCategories);
+    }
+
+    @PutMapping
+    public R<String> updateProfessionCategory(@Validated @RequestBody ProfessionCategories professionCategories){
+        return professionCategoriesService.updateProfessionCategory(professionCategories);
+    }
 
 
 }

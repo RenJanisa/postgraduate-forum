@@ -4,9 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.banner.dto.LoginDto;
-import com.banner.dto.LoginSuccessDto;
-import com.banner.dto.UserDto;
+import com.banner.dto.*;
 import com.banner.mapper.UserInfoMapper;
 import com.banner.mapper.UserMapper;
 import com.banner.po.User;
@@ -27,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.banner.utils.EmailInfo.CONTEXT;
@@ -50,7 +49,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Resource
     private UserInfoMapper userInfoMapper;
 
-
     @Resource
     private JavaMailSender javaMailSender;
 
@@ -73,9 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public R<String> sendCode(String email) {
         //获取邮箱地址
-        if (RegexUtils.isNotEmail(email)) {
-            PostgraduateForumException.error(CommonError.PARAMS_ERROR);
-        }
+        if (RegexUtils.isNotEmail(email)) PostgraduateForumException.error(CommonError.PARAMS_ERROR);
         //生成验证码
         String code = RandomUtil.randomNumbers(6);
         //发送邮件
@@ -123,7 +119,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //3.设置token刷新时间
         stringRedisTemplate.expire(keyToken, LOGIN_TOKEN_TIME, TimeUnit.HOURS);
 
-        LoginSuccessDto loginSuccessDto = new LoginSuccessDto();
+        LoginSuccessDto loginSuccessDto = userInfoMapper.getUserLoginInfo(one.getId());
         BeanUtil.copyProperties(one, loginSuccessDto);
         loginSuccessDto.setToken(token);
 
@@ -197,5 +193,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userDto.setId(userId);
 
         return R.success(userDto);
+    }
+
+    @Override
+    public R<PageDto<UserPageDto>> getUserPage(PageGetDto pageGetDto) {
+
+        Integer page = pageGetDto.getPage();
+        Integer pageSize = pageGetDto.getPageSize();
+        String userName = pageGetDto.getName();
+
+        List<UserPageDto> users;
+        if (StrUtil.isNotBlank(userName)) users = userMapper.getUserPageWithName((page - 1) * pageSize, pageSize,"%"+userName+"%");
+        else users = userMapper.getUserPage((page - 1) * pageSize, pageSize);
+        PageDto<UserPageDto> userPageDtoPageDto = new PageDto<>(page,pageSize,users);
+        return R.success(userPageDtoPageDto);
     }
 }

@@ -1,8 +1,6 @@
 package com.banner.service;
 
-import com.banner.dto.InstitutionDto;
-import com.banner.dto.InstitutionGetDto;
-import com.banner.dto.PlaceDto;
+import com.banner.dto.*;
 import com.banner.po.Institution;
 import com.banner.utils.R;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -28,4 +26,6 @@ public interface InstitutionService extends IService<Institution> {
     R<String> updateInstitution(Institution institution);
 
     R<String> deleteInstitution(String institutionId);
+
+    R<PageDto<InstitutionDto>> getInstitutionPage(PageGetDto pageGetDto);
 }
